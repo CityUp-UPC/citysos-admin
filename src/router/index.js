@@ -23,6 +23,7 @@ const router = createRouter({
       path: '/',
       redirect: '/admin'
     },
+    { path: '/:pathMatch(.*)*', redirect: '/admin'},
   ]
 })
 
