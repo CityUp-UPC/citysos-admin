@@ -8,8 +8,8 @@ export class PoliceService {
     registerPolice(username, firstName, lastName, email, password, phoneNumber, dni, deviceToken, assignedDistrict, policeRank, policeIdentifier, entityPolice) {
         return http.post('/api/v1/auth/register-police', {
             username: username,
-            firstname: firstName,
-            lastname: lastName,
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             password: password,
             phoneNumber: phoneNumber,

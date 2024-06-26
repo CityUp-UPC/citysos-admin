@@ -53,8 +53,9 @@
       </div>
       <pv-button
           class="w-full"
-          label="Registrar policía"
-          :loading="isRegistering"
+          :label="this.isRegistering? 'Registrando' : 'Registrar policía'"
+          :icon="this.isRegistering ? 'pi pi-spin pi-spinner' : 'pi pi-user-plus'"
+          :disabled="isRegistering"
           type="submit"
       />
       <pv-button
@@ -85,7 +86,7 @@ export default {
       password: '',
       phoneNumber: '',
       dni: '',
-      deviceToken: '',
+      deviceToken: 'no-device',
       assignedDistrict: '',
       policeRank: '',
       policeIdentifier: '',
@@ -100,10 +101,10 @@ export default {
 
       this.policeService.registerPolice(
           this.username,
-          this.password,
           this.firstName,
           this.lastName,
           this.email,
+          this.password,
           this.phoneNumber,
           this.dni,
           this.deviceToken,
@@ -126,8 +127,9 @@ export default {
         this.policeIdentifier = '';
         this.entityPolice = '';
         this.$toast.add({severity: 'success', summary: 'Registro exitoso', detail: 'El policía ha sido registrado correctamente', life: 1000});
-      }).catch(() => {
-        this.$toast.add({severity: 'error', summary: 'Error', detail: 'No se pudo registrar al policía', life: 1000});
+      }).catch((error) => {
+        const errorMessage = error.response?.data?.message || 'No se pudo registrar al policía. Verifica los datos ingresados.';
+        this.$toast.add({severity: 'error', summary: 'Error', detail: errorMessage, life: 1000});
         this.isRegistering = false;
       });
 
